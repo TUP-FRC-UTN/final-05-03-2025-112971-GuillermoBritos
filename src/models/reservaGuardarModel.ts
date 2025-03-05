@@ -4,7 +4,7 @@ import { PasajeroModel } from "./pasajerosModel";
 export interface ReservaGuardarModel {
 
   id: string;
-  documento: string;
+  document: string;
   firstName: string;
   lastName: string;
   service: string;

@@ -26,6 +26,7 @@ export class CrearReservaComponent {
 
   cities: CityModel[] = [];
   services: ServiceModel[] = [];
+  ciudadedesExcluidas: CityModel[] = [];
   cityService = inject(CityService);
   serviceService = inject(ServiceService);
   reservaService = inject(ReservaService);
@@ -34,6 +35,7 @@ export class CrearReservaComponent {
   ngOnInit() {
 
     this.getCities();
+    this.excuirLugarDestino();
 
   }
 
@@ -104,7 +106,7 @@ export class CrearReservaComponent {
       const reservaGuardar: ReservaGuardarModel = {
 
         id: '1',
-        documento: this.formularioReserva.get('documento')?.value,
+        document: this.formularioReserva.get('documento')?.value,
         firstName: this.formularioReserva.get('nombre')?.value,
         lastName: this.formularioReserva.get('apellido')?.value,
         service: this.formularioReserva.get('serviciosDisponible')?.value,
@@ -134,6 +136,26 @@ export class CrearReservaComponent {
   }
 
   buscar() {
+
+
+
+  }
+
+
+  excuirLugarDestino() {
+
+    this.formularioReserva.controls['origen'].valueChanges.subscribe(origen => {
+
+      this.cityService.getCities().subscribe(x => {
+
+        return this.ciudadedesExcluidas = x.filter(y => y.city != origen)
+
+
+      })
+
+    });
+
+
 
   }
 
