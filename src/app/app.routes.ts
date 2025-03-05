@@ -4,7 +4,7 @@ import { CrearReservaComponent } from './crear-reserva/crear-reserva.component';
 
 export const routes: Routes = [
 
-  { path: 'ReservarPasaje', component: CrearReservaComponent },
+  { path: 'crear-reserva', component: CrearReservaComponent },
 
-  { path: 'Listado Reservas', component: ListarReservasComponent }
+  { path: 'listar-reservas', component: ListarReservasComponent }
 ];
