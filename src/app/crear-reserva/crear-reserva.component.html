@@ -1,1 +1,75 @@
-<p>crear-reserva works!</p>
+<div class="container p-4">
+  <div class="card mb-4">
+    <div class="card-body">
+      <form [formGroup]="formularioReserva">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="origen" class="form-label">Origen</label>
+            <select formControlName="origen" class="form-select">
+              <option selected>Buenos Aires</option>
+              @for (city of cities; track $index) {
+              <option [value]="city.id">{{ city.city }}</option>
+              }
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="destino" class="form-label">Destino</label>
+            <select formControlName="destino" class="form-select">
+              <option selected>Córdoba</option>
+              @for (city of cities; track $index) {
+              <option [value]="city.id">{{ city.city }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-12">
+            <label for="fechaIda" class="form-label">Fecha Ida</label>
+            <input type="date" formControlName="fechaIda" class="form-control" value="2025-03-10">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <button type="button" class="btn btn-primary w-100" (click)="buscar()">Buscar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label">Seleccionar Servicio</label>
+        <select formControlName="servicio" class="form-select">
+          <option selected>Partida: 2025-03-10 10:00 Llegada: 2025-03-11 12:00</option>
+          @for (service of services; track $index) {
+          <option [value]="service.id">Partida: {{service.departureDate }} {{service.departureTime }} Llegada:
+            {{service.arrivalDate }} {{service.arrivalTime }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="documento" class="form-label">Documento</label>
+        <input type="text" formControlName="documento" class="form-control" value="1231233">
+      </div>
+
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" formControlName="nombre" class="form-control" value="Carlos">
+      </div>
+
+      <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="text" formControlName="apellido" class="form-control" value="Perez">
+      </div>
+
+      <div>
+        <button type="button" class="btn btn-primary" (click)="confirmarReserva()">Confirmar Reserva</button>
+      </div>
+    </div>
+  </div>
+</div>
