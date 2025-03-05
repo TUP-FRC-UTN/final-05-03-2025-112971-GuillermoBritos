@@ -4,11 +4,12 @@ import { CityModel } from '../../models/cityModel';
 import { CityService } from '../../services/city.service';
 import { ServiceModel } from '../../models/serviceModel';
 import { ServiceService } from '../../services/service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-crear-reserva',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './crear-reserva.component.html',
   styleUrl: './crear-reserva.component.css'
 })
@@ -45,7 +46,7 @@ export class CrearReservaComponent {
   });
 
 
-  añadirPasajeros() {
+  addPasajeros() {
 
     const pasajeros = this.formularioReserva.get('pasajeros') as FormArray;
 

@@ -26,7 +26,7 @@
         <div class="row mb-3">
           <div class="col-12">
             <label for="fechaIda" class="form-label">Fecha Ida</label>
-            <input type="date" formControlName="fechaIda" class="form-control" value="2025-03-10">
+            <input type="date" formControlName="fechaIda" class="form-control">
           </div>
         </div>
 
@@ -41,67 +41,71 @@
 
   <div class="card">
     <div class="card-body">
-      <div class="mb-3">
-        <label class="form-label">Seleccionar Servicio</label>
-        <select formControlName="servicio" class="form-select">
-          <option selected>Partida: 2025-03-10 10:00 Llegada: 2025-03-11 12:00</option>
-          @for (service of services; track $index) {
-          <option [value]="service.id">Partida: {{service.departureDate }} {{service.departureTime }} Llegada:
-            {{service.arrivalDate }} {{service.arrivalTime }}</option>
+      <form [formGroup]="formularioReserva">
+        <div class="mb-3">
+          <label class="form-label">Seleccionar Servicio</label>
+          <select formControlName="serviciosDisponible" class="form-select">
+            <option selected>Partida: 2025-03-10 10:00 Llegada: 2025-03-11 12:00</option>
+            @for (service of services; track $index) {
+            <option [value]="service.id">Partida: {{service.departureDate }} {{service.departureTime }} Llegada:
+              {{service.arrivalDate }} {{service.arrivalTime }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="documento" class="form-label">Documento</label>
+          <input type="text" formControlName="documento" class="form-control">
+          @if(formularioReserva.get('documento')?.invalid && formularioReserva.get('documento')?.touched) {
+          <div class="text-danger">El documento es obligatorio</div>
+          @if(formularioReserva.get('documento')?.hasError('required')) {
+          <div class="text-danger">El documento es obligatorio</div>
           }
-        </select>
-      </div>
+          @else if(formularioReserva.get('documento')?.hasError('minlength')) {
+          <div class="text-danger">El nombre debe tener al menos 6 caracteres</div>
+          }
+          @else if(formularioReserva.get('documento')?.hasError('pattern')) {
+          <div class="text-danger">Para el documento solo se permiten numeros positivos</div>
+          }
+          }
+        </div>
 
-      <div class="mb-3">
-        <label for="documento" class="form-label">Documento</label>
-        <input type="text" formControlName="documento" class="form-control">
-        @if(formularioReserva.get('documento')?.invalid && formularioReserva.get('documento')?.touched) {
-        <div class="text-danger">El documento es obligatorio</div>
-        @if(formularioReserva.get('documento')?.hasError('required')) {
-        <div class="text-danger">El documento es obligatorio</div>
-        }
-        @else if(formularioReserva.get('documento')?.hasError('minlength')) {
-        <div class="text-danger">El nombre debe tener al menos 6 caracteres</div>
-        }
-        @else if(formularioReserva.get('documento')?.hasError('pattern')) {
-        <div class="text-danger">Para el documento solo se permiten numeros positivos</div>
-        }
-        }
-      </div>
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" formControlName="nombre" class="form-control">
+          @if(formularioReserva.get('nombre')?.invalid && formularioReserva.get('nombre')?.touched) {
+          <div class="text-danger">El nombre es obligatorio</div>
+          @if(formularioReserva.get('nombre')?.hasError('required')) {
+          <div class="text-danger">El nombre es obligatorio</div>
+          }
+          @else if(formularioReserva.get('nombre')?.hasError('minlength')) {
+          <div class="text-danger">El nombre debe tener al menos 3 caracteres</div>
+          }
+          }
+        </div>
 
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" formControlName="nombre" class="form-control">
-        @if(formularioReserva.get('nombre')?.invalid && formularioReserva.get('nombre')?.touched) {
-        <div class="text-danger">El nombre es obligatorio</div>
-        @if(formularioReserva.get('nombre')?.hasError('required')) {
-        <div class="text-danger">El nombre es obligatorio</div>
-        }
-        @else if(formularioReserva.get('nombre')?.hasError('minlength')) {
-        <div class="text-danger">El nombre debe tener al menos 3 caracteres</div>
-        }
-        }
+        <div class="mb-3">
+          <label for="apellido" class="form-label">Apellido</label>
+          <input type="text" formControlName="apellido" class="form-control" value="Perez">
+          @if(formularioReserva.get('apellido')?.invalid && formularioReserva.get('apellido')?.touched) {
+          <div class="text-danger">El apellido es obligatorio</div>
+          @if(formularioReserva.get('apellido')?.hasError('required')) {
+          <div class="text-danger">El apellido es obligatorio</div>
+          }
+          @else if(formularioReserva.get('apellido')?.hasError('minlength')) {
+          <div class="text-danger">El apellido debe tener al menos 3 caracteres</div>
+          }
+          }
+        </div>
 
-      </div>
+        <div class="mb-3">
+          <button type="button" class="btn btn-secondary" (click)="addPasajeros()">Añadir Pasajero</button>
+        </div>
 
-      <div class="mb-3">
-        <label for="apellido" class="form-label">Apellido</label>
-        <input type="text" formControlName="apellido" class="form-control" value="Perez">
-        @if(formularioReserva.get('apellido')?.invalid && formularioReserva.get('apellido')?.touched) {
-        <div class="text-danger">El apellido es obligatorio</div>
-        @if(formularioReserva.get('apellido')?.hasError('required')) {
-        <div class="text-danger">El apellido es obligatorio</div>
-        }
-        @else if(formularioReserva.get('apellido')?.hasError('minlength')) {
-        <div class="text-danger">El apellido debe tener al menos 3 caracteres</div>
-        }
-        }
-
-      </div>
-
-      <div>
-        <button type="button" class="btn btn-primary" (click)="confirmarReserva()">Confirmar Reserva</button>
-      </div>
+        <div>
+          <button type="button" class="btn btn-primary" (click)="confirmarReserva()">Confirmar Reserva</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
