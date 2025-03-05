@@ -67,6 +67,9 @@
           @else if(formularioReserva.get('documento')?.hasError('pattern')) {
           <div class="text-danger">Para el documento solo se permiten numeros positivos</div>
           }
+          @else if(formularioReserva.get('documento')?.hasError('documentoInvalido')) {
+          <div class="text-danger">El documento ya esta registrado</div>
+          }
           }
         </div>
 
@@ -98,8 +101,21 @@
           }
         </div>
 
-        <div class="mb-3">
-          <button type="button" class="btn btn-secondary" (click)="addPasajeros()">Añadir Pasajero</button>
+
+
+        <div formArrayName="pasajeros">
+          @for (pasajero of obtenerPasajeros(); track $index) {
+          <div [formGroupName]="$index">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input formControlName="documentoPasajero" placeholder="Documento">
+            <input formControlName="nombre" placeholder="Nombre">
+            <input formControlName="apellido" placeholder="Apellido">
+            <button type="button" (click)="removerPasajero($index)">Eliminar</button>
+          </div>
+          }
+          <div class="mb-3">
+            <button type="button" class="btn btn-secondary" (click)="addPasajeros()">Añadir Pasajero</button>
+          </div>
         </div>
 
         <div>
